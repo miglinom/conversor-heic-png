@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(where python *)",
+      "Bash(python -m venv venv)",
+      "Bash(./venv/Scripts/python.exe -m pip install --upgrade pip)",
+      "Bash(./venv/Scripts/python.exe -m pip install pillow pillow-heif tkinterdnd2 pyinstaller)",
+      "Bash(./venv/Scripts/python.exe -c \"import PIL, pillow_heif, tkinterdnd2; print\\('PIL', PIL.__version__\\); print\\('pillow_heif', pillow_heif.__version__\\); print\\('tkinterdnd2', tkinterdnd2.__version__\\)\")",
+      "Bash(./venv/Scripts/python.exe -c ' *)",
+      "Bash(./venv/Scripts/python.exe -m PyInstaller --onefile --windowed --name \"ConversorFotos\" --collect-all tkinterdnd2 --collect-all pillow_heif app.py --noconfirm)",
+      "Bash(python -c \"import os; print\\(round\\(os.path.getsize\\('dist/ConversorFotos.exe'\\)/1048576,1\\), 'MB'\\)\")",
+      "PowerShell($p = Start-Process -FilePath \"C:\\\\Users\\\\Mauricio\\\\Documents\\\\ProyectosClaude\\\\ConvesorIphonePng\\\\dist\\\\ConversorFotos.exe\" -PassThru; Start-Sleep -Seconds 6; if \\(-not $p.HasExited\\) { Write-Output \"OK: proceso vivo PID $\\($p.Id\\) tras 6s \\(la ventana abrio sin crashear\\)\"; $p.Kill\\(\\) } else { Write-Output \"FALLO: el exe salio con codigo $\\($p.ExitCode\\)\" })",
+      "Bash(gh auth *)",
+      "Bash(git --version)",
+      "Bash(git config *)",
+      "Bash(git ls-remote *)",
+      "Bash(echo \"EXIT=$?\")",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git commit -q -m 'Conversor de fotos HEIC/HEIF de iPhone a PNG *)",
+      "Bash(git branch *)",
+      "Bash(git remote *)",
+      "Bash(du -sh venv build dist __pycache__ .claude)",
+      "Bash(find . -type f -size +50M)",
+      "Bash(du -sh .)",
+      "Bash(git check-ignore *)",
+      "Bash(echo \"exit=$?\")",
+      "Bash(git commit -q -m 'Incluir entorno completo: venv, build, dist \\(.exe\\) y archivos de trabajo *)"
+    ]
+  }
+}
