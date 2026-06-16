@@ -1,0 +1,11 @@
+# Entornos y artefactos de build
+venv/
+build/
+dist/
+__pycache__/
+*.spec
+*.pyc
+
+# Archivos de trabajo locales (no forman parte del proyecto)
+prompt.txt
+.claude/

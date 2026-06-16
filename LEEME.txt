@@ -1,0 +1,58 @@
+CONVERSOR DE FOTOS IPHONE A PNG
+================================
+
+QUE ES
+------
+Una app de escritorio para Windows. La persona que la recibe solo tiene
+que abrir el programa y arrastrar la carpeta con sus fotos (.HEIC/.HEIF)
+sobre la ventana. El programa crea una subcarpeta llamada
+"PNG convertidas" con todas las fotos pasadas a PNG, conservando la
+orientacion correcta.
+
+PASO 1 - COMPILAR EL .EXE (lo haces vos, en TU PC con Windows)
+----------------------------------------------------------------
+1. Instala Python 3.10 o mas nuevo desde https://python.org si no lo
+   tenes (marca "Add python.exe to PATH" en el instalador).
+2. Copia esta carpeta completa a tu PC.
+3. Doble click en build.bat y espera a que termine (puede tardar
+   varios minutos la primera vez).
+4. El ejecutable final queda en: dist\ConversorFotos.exe
+   Va a pesar entre 80 y 150 MB porque incluye todo lo necesario para
+   que la otra persona no tenga que instalar nada.
+
+PASO 2 - ENVIO A LA OTRA PERSONA
+---------------------------------
+1. Subi dist\ConversorFotos.exe a Google Drive o WeTransfer.
+2. Mandale el link por mail.
+3. IMPORTANTE - esto pasa siempre que se descarga un .exe de internet,
+   no importa si fue por mail o por Drive: Windows va a mostrar un
+   cartel azul que dice "Windows protegio tu PC". Avisale por mail,
+   ANTES de que lo abra, que tiene que hacer click en "Mas informacion"
+   y despues en "Ejecutar de todas formas". Si no le avisas, lo mas
+   probable es que cierre el cartel y piense que el programa no
+   funciona.
+
+PASO 3 - USO (texto para copiar y pegar en tu mail)
+-------------------------------------------------------------
+"Te mando el conversor de fotos. Pasos:
+ 1) Descarga el archivo ConversorFotos.exe del link.
+ 2) Hace doble click para abrirlo. Windows va a mostrar un cartel azul
+    de advertencia: toca 'Mas informacion' y despues 'Ejecutar de
+    todas formas'. Es normal, pasa porque el programa no esta
+    registrado con Microsoft, no es un virus.
+ 3) Se abre una ventanita. Arrastra ahi la carpeta completa con tus
+    fotos del iPhone.
+ 4) Espera unos segundos. Cuando termine te va a avisar cuantas fotos
+    convirtio. Las vas a encontrar en una carpeta nueva llamada
+    'PNG convertidas', dentro de la misma carpeta que arrastraste."
+
+NOTAS TECNICAS
+---------------
+- Solo convierte los archivos que estan directamente dentro de la
+  carpeta arrastrada (no busca dentro de subcarpetas).
+- El PNG es sin perdida, asi que la calidad es la maxima posible a
+  partir del HEIC original (no se "mejora" la imagen, se mantiene).
+- Si el antivirus de la otra PC bloquea el .exe (puede pasar con
+  ejecutables sin firma digital), puede que haga falta agregar una
+  excepcion. Eso queda fuera de lo que se puede resolver desde el
+  programa.
