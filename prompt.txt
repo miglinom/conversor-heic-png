@@ -1,0 +1,29 @@
+Tengo un proyecto Python en esta carpeta (app.py, requirements.txt, build.bat)
+que convierte fotos HEIC/HEIF de iPhone a PNG con una interfaz de
+arrastrar y soltar, pensado para compilarse como .exe standalone con
+PyInstaller en Windows.
+
+Quiero que:
+
+1. Revises app.py, requirements.txt y build.bat y verifiques que son
+   coherentes entre si (versiones de tkinterdnd2, pillow-heif, etc.).
+2. Crees un entorno virtual, instales las dependencias y corras el
+   build (podés usar build.bat como referencia o ejecutar pyinstaller
+   directamente).
+3. Si el build falla o el .exe no abre, no abandones en el primer
+   intento: diagnostiques el error real (falta de hidden imports,
+   binarios de libheif no incluidos, problemas con tkinterdnd2 y
+   --onefile, etc.) y ajustes los flags de pyinstaller o el código
+   hasta que dist\ConversorFotos.exe abra correctamente.
+4. Probes manualmente que la ventana abre, que el boton "elegir
+   carpeta" funciona, y si podés simular o verificar el flujo de
+   arrastrar una carpeta con archivos .heic de prueba (podés generar
+   un .heic de prueba si hace falta, o avisame si no es posible y
+   probamos a mano).
+5. Me confirmes el tamaño final del .exe y cualquier advertencia que
+   haya aparecido (antivirus, SmartScreen, dependencias faltantes)
+   para que yo sepa que avisarle a la persona que lo va a usar.
+
+No me devuelvas explicaciones largas de cada paso intermedio, solo
+contame que cambiaste si tuviste que tocar el codigo o los flags de
+pyinstaller, y el resultado final.
