@@ -89,15 +89,22 @@ class App:
         self.log = tk.Text(root, height=8, state="disabled", bg="#f7f7f7")
         self.log.pack(fill="x", padx=20, pady=(0, 20))
 
+        # Evita que se lancen dos conversiones a la vez (ver procesar()).
+        self.procesando = False
+
         self.root.drop_target_register(DND_FILES)
         self.root.dnd_bind("<<Drop>>", self.on_drop)
 
     def escribir(self, texto):
+        # Se puede llamar desde el hilo de trabajo: Tkinter no es seguro entre
+        # hilos, asi que delegamos la actualizacion real al hilo principal.
+        self.root.after(0, self._escribir_ui, texto)
+
+    def _escribir_ui(self, texto):
         self.log.config(state="normal")
         self.log.insert("end", texto + "\n")
         self.log.see("end")
         self.log.config(state="disabled")
-        self.root.update_idletasks()
 
     def elegir_carpeta(self, event=None):
         carpeta = filedialog.askdirectory(title="Elegi la carpeta con tus fotos")
@@ -116,6 +123,11 @@ class App:
         self.procesar(carpeta)
 
     def procesar(self, carpeta: Path):
+        # Ignora clicks/drops nuevos mientras ya hay una conversion en curso.
+        if self.procesando:
+            return
+        self.procesando = True
+
         self.label.config(text=f"Procesando:\n{carpeta}")
         self.escribir(f"Carpeta elegida: {carpeta}")
 
@@ -123,21 +135,29 @@ class App:
             try:
                 ok, errores = convertir_carpeta(carpeta, self.escribir)
                 self.escribir(f"\nListo. Convertidas: {ok}  |  Con error: {errores}")
-                messagebox.showinfo(
-                    "Conversion terminada",
-                    f"Se convirtieron {ok} fotos a PNG.\n"
-                    f"Las vas a encontrar dentro de:\n{carpeta / 'PNG convertidas'}"
-                    + (f"\n\n{errores} archivo(s) no se pudieron convertir." if errores else ""),
-                )
+                self.root.after(0, self._finalizar_ok, carpeta, ok, errores)
             except Exception:
                 self.escribir("Error inesperado:\n" + traceback.format_exc())
-                messagebox.showerror(
-                    "Error", "Ocurrio un error inesperado. Revisa el detalle en la ventana."
-                )
-            finally:
-                self.label.config(text=TEXTO_INICIAL)
+                self.root.after(0, self._finalizar_error)
 
         threading.Thread(target=trabajo, daemon=True).start()
+
+    def _finalizar_ok(self, carpeta: Path, ok: int, errores: int):
+        self.label.config(text=TEXTO_INICIAL)
+        messagebox.showinfo(
+            "Conversion terminada",
+            f"Se convirtieron {ok} fotos a PNG.\n"
+            f"Las vas a encontrar dentro de:\n{carpeta / 'PNG convertidas'}"
+            + (f"\n\n{errores} archivo(s) no se pudieron convertir." if errores else ""),
+        )
+        self.procesando = False
+
+    def _finalizar_error(self):
+        self.label.config(text=TEXTO_INICIAL)
+        messagebox.showerror(
+            "Error", "Ocurrio un error inesperado. Revisa el detalle en la ventana."
+        )
+        self.procesando = False
 
 
 def main():

@@ -25,7 +25,9 @@
       "Bash(du -sh .)",
       "Bash(git check-ignore *)",
       "Bash(echo \"exit=$?\")",
-      "Bash(git commit -q -m 'Incluir entorno completo: venv, build, dist \\(.exe\\) y archivos de trabajo *)"
+      "Bash(git commit -q -m 'Incluir entorno completo: venv, build, dist \\(.exe\\) y archivos de trabajo *)",
+      "Bash(python -c \"import os;print\\(round\\(os.path.getsize\\('dist/ConversorFotos.exe'\\)/1048576,1\\),'MB'\\)\")",
+      "PowerShell($p = Start-Process -FilePath \"C:\\\\Users\\\\Mauricio\\\\Documents\\\\ProyectosClaude\\\\ConvesorIphonePng\\\\dist\\\\ConversorFotos.exe\" -PassThru; Start-Sleep -Seconds 6; if \\(-not $p.HasExited\\) { Write-Output \"OK: proceso vivo PID $\\($p.Id\\) tras 6s\"; $p.Kill\\(\\) } else { Write-Output \"FALLO: exit $\\($p.ExitCode\\)\" })"
     ]
   }
 }
